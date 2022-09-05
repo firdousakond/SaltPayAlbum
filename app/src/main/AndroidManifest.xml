@@ -14,7 +14,7 @@
         android:theme="@style/Theme.SaltPayBlank"
         tools:targetApi="31">
         <activity
-            android:name=".ui.SongActivity"
+            android:name=".ui.AlbumActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
