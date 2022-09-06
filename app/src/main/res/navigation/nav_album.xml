@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_album"
+    app:startDestination="@id/albumListFragment">
+
+    <fragment
+        android:id="@+id/albumListFragment"
+        android:name="com.firdous.saltpayblank.ui.AlbumListFragment"
+        android:label="AlbumListFragment"
+        tools:layout="@layout/fragment_album" />
+
+    <fragment
+        android:id="@+id/favAlbumFragment"
+        android:name="com.firdous.saltpayblank.ui.FavAlbumFragment"
+        android:label="favAlbumFragment"
+        tools:layout="@layout/fragment_fav_album" />
+
+</navigation>
