@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -11,17 +12,20 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.firdous.saltpayblank.R
 import com.firdous.saltpayblank.data.Resource
 import com.firdous.saltpayblank.data.model.AlbumsResponse
+import com.firdous.saltpayblank.data.model.Entry
 import com.firdous.saltpayblank.databinding.FragmentAlbumBinding
 import com.firdous.saltpayblank.util.hide
 import com.firdous.saltpayblank.util.show
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.*
 
 class AlbumListFragment : Fragment() {
 
     private lateinit var binding: FragmentAlbumBinding
     private lateinit var albumAdapter: AlbumAdapter
+    private var albumList: MutableList<Entry>? = null
     private val viewModel: AlbumViewModel by viewModel()
 
     override fun onCreateView(
@@ -36,8 +40,17 @@ class AlbumListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.etSearch.addTextChangedListener { searchAlbum(it?.trim()?.toString()) }
         setupAdapter()
         setupObserver()
+    }
+    private fun searchAlbum(text: String?) {
+        if (!text.isNullOrEmpty()) {
+            val searchList = albumList?.filter { it.name?.label?.lowercase()?.contains(text.lowercase()) == true }
+            albumAdapter.submitList(searchList)
+        } else {
+            albumAdapter.submitList(albumList)
+        }
     }
 
     private fun setupAdapter() {
@@ -70,6 +83,7 @@ class AlbumListFragment : Fragment() {
 
     private fun updateList(data: AlbumsResponse) {
         val entry = data.feed?.entry
+        albumList = entry?.toMutableList()
         albumAdapter.submitList(entry)
     }
 }
