@@ -15,7 +15,10 @@ class AlbumViewModel(private val useCase: AlbumUseCase) : ViewModel() {
     private val _albumStateFlow = MutableStateFlow<Resource<AlbumsResponse>>(Resource.Loading)
     val albumStateFlow = _albumStateFlow.asStateFlow()
 
-    fun getTopAlbums() {
+    init {
+        getTopAlbums()
+    }
+    private fun getTopAlbums() {
         viewModelScope.launch {
             useCase.getTopAlbums()
                 .catch {
