@@ -1,12 +1,17 @@
 package com.firdous.saltpayblank.di
 
+import androidx.room.Room
 import com.firdous.saltpayblank.BuildConfig
 import com.firdous.saltpayblank.data.AlbumRepo
-import com.firdous.saltpayblank.data.RemoteDataSource
-import com.firdous.saltpayblank.data.network.ApiService
+import com.firdous.saltpayblank.data.local.LocalDataSource
+import com.firdous.saltpayblank.data.local.room.AlbumDatabase
+import com.firdous.saltpayblank.data.local.room.Converters
+import com.firdous.saltpayblank.data.remote.RemoteDataSource
+import com.firdous.saltpayblank.data.remote.network.ApiService
 import com.firdous.saltpayblank.domain.repository.IAlbumRepo
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -33,9 +38,24 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get()) }
+    single { LocalDataSource(get()) }
     single<IAlbumRepo> {
         AlbumRepo(
-            get()
+            get(), get(), androidContext()
         )
+    }
+}
+
+
+val databaseModule = module {
+
+    factory { get<AlbumDatabase>().albumDao() }
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            AlbumDatabase::class.java, "album.db"
+        )
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }

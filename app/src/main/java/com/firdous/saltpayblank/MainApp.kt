@@ -1,10 +1,7 @@
 package com.firdous.saltpayblank
 
 import android.app.Application
-import com.firdous.saltpayblank.di.networkModule
-import com.firdous.saltpayblank.di.repositoryModule
-import com.firdous.saltpayblank.di.useCaseModule
-import com.firdous.saltpayblank.di.viewModelModule
+import com.firdous.saltpayblank.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -22,7 +19,8 @@ class MainApp: Application() {
                     networkModule,
                     repositoryModule,
                     useCaseModule,
-                    viewModelModule
+                    viewModelModule,
+                    databaseModule
                 )
             )
         }

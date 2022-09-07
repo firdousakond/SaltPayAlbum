@@ -7,7 +7,7 @@
 
         <variable
             name="entry"
-            type="com.firdous.saltpayblank.data.model.Entry" />
+            type="com.firdous.saltpayblank.data.local.entity.AlbumEntity" />
     </data>
 
     <androidx.cardview.widget.CardView

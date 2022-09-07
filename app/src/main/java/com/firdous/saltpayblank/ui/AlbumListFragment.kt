@@ -11,21 +11,19 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.firdous.saltpayblank.R
 import com.firdous.saltpayblank.data.Resource
-import com.firdous.saltpayblank.data.model.AlbumsResponse
-import com.firdous.saltpayblank.data.model.Entry
+import com.firdous.saltpayblank.data.local.entity.AlbumEntity
 import com.firdous.saltpayblank.databinding.FragmentAlbumBinding
 import com.firdous.saltpayblank.util.hide
 import com.firdous.saltpayblank.util.show
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import java.util.*
 
 class AlbumListFragment : Fragment() {
 
     private lateinit var binding: FragmentAlbumBinding
     private lateinit var albumAdapter: AlbumAdapter
-    private var albumList: MutableList<Entry>? = null
+    private var albumList: MutableList<AlbumEntity>? = null
     private val viewModel: AlbumViewModel by viewModel()
 
     override fun onCreateView(
@@ -81,9 +79,8 @@ class AlbumListFragment : Fragment() {
         }
     }
 
-    private fun updateList(data: AlbumsResponse) {
-        val entry = data.feed?.entry
-        albumList = entry?.toMutableList()
-        albumAdapter.submitList(entry)
+    private fun updateList(data: List<AlbumEntity>) {
+        albumList = data.toMutableList()
+        albumAdapter.submitList(data)
     }
 }

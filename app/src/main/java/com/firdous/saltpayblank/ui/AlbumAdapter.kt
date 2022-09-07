@@ -6,15 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.firdous.saltpayblank.data.model.Entry
+import com.firdous.saltpayblank.data.local.entity.AlbumEntity
 import com.firdous.saltpayblank.databinding.ItemAlbumBinding
 
 class AlbumAdapter(private val context: Context) :
-    ListAdapter<Entry, AlbumAdapter.AlbumViewHolder>(AlbumDiffUtil()) {
+    ListAdapter<AlbumEntity, AlbumAdapter.AlbumViewHolder>(AlbumDiffUtil()) {
 
     inner class AlbumViewHolder(private val binding: ItemAlbumBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(entry: Entry) {
+        fun bind(entry: AlbumEntity) {
             binding.entry = entry
             binding.executePendingBindings()
         }
@@ -30,17 +30,17 @@ class AlbumAdapter(private val context: Context) :
     }
 }
 
-class AlbumDiffUtil : DiffUtil.ItemCallback<Entry>() {
+class AlbumDiffUtil : DiffUtil.ItemCallback<AlbumEntity>() {
     override fun areItemsTheSame(
-        oldItem: Entry,
-        newItem: Entry
+        oldItem: AlbumEntity,
+        newItem: AlbumEntity
     ): Boolean {
         return oldItem == newItem
     }
 
     override fun areContentsTheSame(
-        oldItem: Entry,
-        newItem: Entry
+        oldItem: AlbumEntity,
+        newItem: AlbumEntity
     ): Boolean {
         return oldItem == newItem
     }
