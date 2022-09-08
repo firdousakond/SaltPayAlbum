@@ -1,9 +1,12 @@
 package com.firdous.saltpayblank.data.local.entity
 
+import android.graphics.drawable.Drawable
+import android.widget.ImageView
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.firdous.saltpayblank.R
 import com.google.gson.annotations.SerializedName
 import org.jetbrains.annotations.NotNull
 

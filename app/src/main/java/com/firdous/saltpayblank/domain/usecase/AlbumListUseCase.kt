@@ -5,6 +5,6 @@ import com.firdous.saltpayblank.data.local.entity.AlbumEntity
 import com.firdous.saltpayblank.domain.repository.IAlbumRepo
 import kotlinx.coroutines.flow.Flow
 
-class AlbumUseCase(private val albumRepo: IAlbumRepo) {
+class AlbumListUseCase(private val albumRepo: IAlbumRepo) {
     suspend fun getTopAlbums(): Flow<Resource<List<AlbumEntity>>> = albumRepo.getTopAlbum()
 }

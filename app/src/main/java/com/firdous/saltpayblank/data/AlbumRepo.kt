@@ -37,9 +37,8 @@ class AlbumRepo(private val localDataSource: LocalDataSource, private val remote
 
         }.asFlow()
 
-    override suspend fun getAlbumFromDb(): Flow<List<AlbumEntity>> = localDataSource.getAllAlbums()
-    override suspend fun insertAlbums(albumEntity: List<AlbumEntity>) : Array<Long> = localDataSource.insertAlbums(albumEntity)
-
-
+    override suspend fun setFavourite(id: Int, isFavourite: Boolean) {
+        localDataSource.setFavourite(id, isFavourite)
+    }
 
 }

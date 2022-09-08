@@ -11,4 +11,6 @@ interface AlbumDao {
     fun getAllAlbums(): Flow<List<AlbumEntity>>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAlbums(albums: List<AlbumEntity>): Array<Long>
+    @Query("UPDATE albumEntry set favourite = :isFavourite where id=:id")
+    suspend fun setFavourite(id: Int, isFavourite: Boolean)
 }

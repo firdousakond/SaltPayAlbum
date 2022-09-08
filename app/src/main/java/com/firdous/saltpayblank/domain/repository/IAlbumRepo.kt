@@ -6,6 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface IAlbumRepo {
     suspend fun getTopAlbum() : Flow<Resource<List<AlbumEntity>>>
-    suspend fun insertAlbums(albumEntity: List<AlbumEntity>): Array<Long>
-    suspend fun getAlbumFromDb() : Flow<List<AlbumEntity>>
+    suspend fun setFavourite(id: Int, isFavourite: Boolean)
 }

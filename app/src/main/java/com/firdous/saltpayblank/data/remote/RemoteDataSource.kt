@@ -1,6 +1,5 @@
 package com.firdous.saltpayblank.data.remote
 
-import com.firdous.saltpayblank.data.Resource
 import com.firdous.saltpayblank.data.remote.network.ApiResponse
 import com.firdous.saltpayblank.data.remote.network.ApiService
 import kotlinx.coroutines.Dispatchers

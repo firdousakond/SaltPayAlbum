@@ -19,3 +19,12 @@ fun loadImage(imageView: ImageView, url: String?) {
             .into(imageView)
     }
 }
+
+@BindingAdapter("favouriteImage")
+fun setFavouriteImage(imageView: ImageView, isFavourite: Boolean){
+    if (isFavourite) {
+        imageView.setImageResource(R.drawable.ic_favourite_filled)
+    } else {
+        imageView.setImageResource(R.drawable.ic_favorite)
+    }
+}

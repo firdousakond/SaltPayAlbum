@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 class LocalDataSource(private val albumDao: AlbumDao) {
     fun getAllAlbums(): Flow<List<AlbumEntity>> = albumDao.getAllAlbums()
     suspend fun insertAlbums(albums: List<AlbumEntity>): Array<Long> = albumDao.insertAlbums(albums)
+    suspend fun setFavourite(id: Int, isFavourite: Boolean) = albumDao.setFavourite(id, isFavourite)
 }

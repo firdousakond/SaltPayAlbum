@@ -52,11 +52,15 @@ class AlbumListFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        albumAdapter = AlbumAdapter(requireContext())
+        albumAdapter = AlbumAdapter(requireContext()){setFavourite(it)}
         binding.rvAlbum.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = albumAdapter
         }
+    }
+
+    private fun setFavourite(album: AlbumEntity) {
+        viewModel.setFavourite(album)
     }
 
     private fun setupObserver() {
