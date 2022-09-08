@@ -10,7 +10,7 @@ fun List<Entry>.toAlbumEntity(): List<AlbumEntity> {
            imageEntityList.add(ImImageEntity(label = it.label))
        }
        AlbumEntity(
-           id = 0,
+           id = entry.id.attributes?.id?.toInt()?:0,
            artist = ImArtistEntity(label = entry.artist?.label),
            image = imageEntityList,
            itemCount = ImItemCountEntity(label = entry.itemCount?.label),

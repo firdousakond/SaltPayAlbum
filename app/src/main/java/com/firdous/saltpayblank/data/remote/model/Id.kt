@@ -3,8 +3,7 @@ package com.firdous.saltpayblank.data.remote.model
 import androidx.room.Embedded
 import androidx.room.Entity
 
-data class ImReleaseDate(
-    val label: String?,
+data class Id(
     @Embedded
-    val attributes: Attributes?
+    val attributes: IdAttributes?
 )

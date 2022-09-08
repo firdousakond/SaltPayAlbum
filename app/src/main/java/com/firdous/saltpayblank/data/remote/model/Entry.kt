@@ -15,5 +15,6 @@ data class Entry(
     val price: ImPrice?,
     @SerializedName("im:releaseDate")
     val releaseDate: ImReleaseDate?,
-    val title: Title?
+    val title: Title?,
+    val id: Id
 )

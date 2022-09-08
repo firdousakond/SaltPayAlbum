@@ -13,28 +13,33 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
-class AlbumViewModel(private val useCase: AlbumListUseCase, private val favouriteAlbumUseCase: FavouriteAlbumUseCase) : ViewModel() {
+class AlbumViewModel(
+    private val useCase: AlbumListUseCase,
+    private val favouriteAlbumUseCase: FavouriteAlbumUseCase
+) : ViewModel() {
+
     private val _albumStateFlow = MutableStateFlow<Resource<List<AlbumEntity>>>(Resource.Loading)
     val albumStateFlow = _albumStateFlow.asStateFlow()
 
     init {
         getTopAlbums()
     }
-     private fun getTopAlbums() {
+
+    private fun getTopAlbums() {
         viewModelScope.launch {
             useCase.getTopAlbums()
                 .catch {
                     Timber.e(it.message)
                     _albumStateFlow.emit(Resource.Error(it.message ?: ""))
                 }.collect {
-                   _albumStateFlow.emit(it)
+                    _albumStateFlow.emit(it)
                 }
         }
     }
 
-    fun setFavourite(album: AlbumEntity){
+    fun setFavourite(album: AlbumEntity) {
         viewModelScope.launch(Dispatchers.IO) {
-            favouriteAlbumUseCase.setFavourite(album.id, album.favourite?:false)
+            favouriteAlbumUseCase.setFavourite(album.id, album.favourite ?: false)
         }
     }
 }

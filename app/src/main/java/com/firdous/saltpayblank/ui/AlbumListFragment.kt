@@ -33,6 +33,7 @@ class AlbumListFragment : Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_album, container, false)
         (activity as AlbumActivity).binding.toolBar.navigationIcon = null
+        (activity as AlbumActivity).binding.ivFavourite.show()
         return binding.root
     }
 
@@ -42,6 +43,7 @@ class AlbumListFragment : Fragment() {
         setupAdapter()
         setupObserver()
     }
+
     private fun searchAlbum(text: String?) {
         if (!text.isNullOrEmpty()) {
             val searchList = albumList?.filter { it.name?.label?.lowercase()?.contains(text.lowercase()) == true }
@@ -52,15 +54,11 @@ class AlbumListFragment : Fragment() {
     }
 
     private fun setupAdapter() {
-        albumAdapter = AlbumAdapter(requireContext()){setFavourite(it)}
+        albumAdapter = AlbumAdapter(requireContext()){ viewModel.setFavourite(it)}
         binding.rvAlbum.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = albumAdapter
         }
-    }
-
-    private fun setFavourite(album: AlbumEntity) {
-        viewModel.setFavourite(album)
     }
 
     private fun setupObserver() {

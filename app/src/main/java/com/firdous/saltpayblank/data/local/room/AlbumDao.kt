@@ -6,7 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface AlbumDao {
-
     @Query("SELECT * FROM albumEntry")
     fun getAllAlbums(): Flow<List<AlbumEntity>>
     @Insert(onConflict = OnConflictStrategy.IGNORE)
