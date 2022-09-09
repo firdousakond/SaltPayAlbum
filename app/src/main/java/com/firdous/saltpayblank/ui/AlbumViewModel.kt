@@ -25,7 +25,7 @@ class AlbumViewModel(
         getTopAlbums()
     }
 
-    private fun getTopAlbums() {
+    fun getTopAlbums() {
         viewModelScope.launch {
             useCase.getTopAlbums()
                 .catch {
