@@ -40,7 +40,7 @@ class AlbumDiffUtil : DiffUtil.ItemCallback<AlbumEntity>() {
         oldItem: AlbumEntity,
         newItem: AlbumEntity
     ): Boolean {
-        return oldItem == newItem
+        return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(

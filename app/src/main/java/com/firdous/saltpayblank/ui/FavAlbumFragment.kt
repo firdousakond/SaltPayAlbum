@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.firdous.saltpayblank.R
 import com.firdous.saltpayblank.data.Resource
 import com.firdous.saltpayblank.databinding.FragmentFavAlbumBinding
-import com.firdous.saltpayblank.util.hide
-import com.firdous.saltpayblank.util.show
+import com.firdous.saltpayblank.ui.util.hide
+import com.firdous.saltpayblank.ui.util.show
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber

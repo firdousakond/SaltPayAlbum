@@ -12,4 +12,7 @@ interface AlbumDao {
     suspend fun insertAlbums(albums: List<AlbumEntity>): Array<Long>
     @Query("UPDATE albumEntry set favourite = :isFavourite where id=:id")
     suspend fun setFavourite(id: Int, isFavourite: Boolean) : Int
+    @Query("select * from albumEntry where nameLabel LIKE '%' || :searchQuery || '%'")
+    fun getSearchedAlbum(searchQuery: String): Flow<List<AlbumEntity>>
+
 }

@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface IAlbumRepo {
     suspend fun getTopAlbum() : Flow<Resource<List<AlbumEntity>>>
     suspend fun setFavourite(id: Int, isFavourite: Boolean)
+    suspend fun searchAlbum(text:String): Flow<List<AlbumEntity>>
 }

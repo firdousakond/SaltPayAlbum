@@ -6,16 +6,16 @@ import com.firdous.saltpayblank.data.Resource
 import com.firdous.saltpayblank.data.local.entity.AlbumEntity
 import com.firdous.saltpayblank.domain.usecase.AlbumListUseCase
 import com.firdous.saltpayblank.domain.usecase.FavouriteAlbumUseCase
+import com.firdous.saltpayblank.domain.usecase.SearchAlbumUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class AlbumViewModel(
     private val useCase: AlbumListUseCase,
-    private val favouriteAlbumUseCase: FavouriteAlbumUseCase
+    private val favouriteAlbumUseCase: FavouriteAlbumUseCase,
+    private val searchAlbumUseCase: SearchAlbumUseCase
 ) : ViewModel() {
 
     private val _albumStateFlow = MutableStateFlow<Resource<List<AlbumEntity>>>(Resource.Loading)
@@ -42,4 +42,20 @@ class AlbumViewModel(
             favouriteAlbumUseCase.setFavourite(album.id, album.favourite ?: false)
         }
     }
+
+    fun searchAlbum(text: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            searchAlbumUseCase.searchAlbum(text).collectLatest {
+                _albumStateFlow.update { album ->
+                    if (album is Resource.Success) {
+                        Resource.Success(it)
+                    } else {
+                        album
+                    }
+                }
+            }
+        }
+
+    }
+
 }

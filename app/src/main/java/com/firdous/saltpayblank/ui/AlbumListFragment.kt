@@ -13,8 +13,8 @@ import com.firdous.saltpayblank.R
 import com.firdous.saltpayblank.data.Resource
 import com.firdous.saltpayblank.data.local.entity.AlbumEntity
 import com.firdous.saltpayblank.databinding.FragmentAlbumBinding
-import com.firdous.saltpayblank.util.hide
-import com.firdous.saltpayblank.util.show
+import com.firdous.saltpayblank.ui.util.hide
+import com.firdous.saltpayblank.ui.util.show
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -39,20 +39,11 @@ class AlbumListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.etSearch.addTextChangedListener { searchAlbum(it?.trim()?.toString()) }
+        binding.etSearch.addTextChangedListener { viewModel.searchAlbum(it?.trim()?.toString()?:"") }
         setupAdapter()
         setupObserver()
     }
-
-    private fun searchAlbum(text: String?) {
-        if (!text.isNullOrEmpty()) {
-            val searchList = albumList?.filter { it.name?.label?.lowercase()?.contains(text.lowercase()) == true }
-            albumAdapter.submitList(searchList)
-        } else {
-            albumAdapter.submitList(albumList)
-        }
-    }
-
+    
     private fun setupAdapter() {
         albumAdapter = AlbumAdapter(requireContext()){ viewModel.setFavourite(it)}
         binding.rvAlbum.apply {

@@ -7,11 +7,12 @@ import com.firdous.saltpayblank.data.remote.RemoteDataSource
 import com.firdous.saltpayblank.data.remote.model.AlbumsResponse
 import com.firdous.saltpayblank.data.remote.network.ApiResponse
 import com.firdous.saltpayblank.domain.repository.IAlbumRepo
-import com.firdous.saltpayblank.util.NetworkUtil
-import com.firdous.saltpayblank.util.toAlbumEntity
+import com.firdous.saltpayblank.ui.util.NetworkUtil
+import com.firdous.saltpayblank.domain.toAlbumEntity
 import kotlinx.coroutines.flow.Flow
 
-class AlbumRepo(private val localDataSource: LocalDataSource, private val remoteDataSource: RemoteDataSource,  private val context : Context): IAlbumRepo {
+class AlbumRepo(private val localDataSource: LocalDataSource, private val remoteDataSource: RemoteDataSource,
+                private val context : Context): IAlbumRepo {
 
     override suspend fun getTopAlbum(): Flow<Resource<List<AlbumEntity>>>  =
         object : NetworkBoundResource<List<AlbumEntity>, AlbumsResponse>() {
@@ -39,6 +40,10 @@ class AlbumRepo(private val localDataSource: LocalDataSource, private val remote
 
     override suspend fun setFavourite(id: Int, isFavourite: Boolean) {
         localDataSource.setFavourite(id, isFavourite)
+    }
+
+    override suspend fun searchAlbum(text: String): Flow<List<AlbumEntity>> {
+        return localDataSource.getSearchAlbums(text)
     }
 
 }
